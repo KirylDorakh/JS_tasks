@@ -1,10 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+      #raz div {
+        transition: 3s;
+        opacity: 0;
+      }
+    </style>
 </head>
 <body>
-$END$
+<div id="raz">
+  <input type="button" value="Добавить">
+</div>
+
+<div id="raz7">
+    <input type="button" value="Добавить текст">
+</div>
+
+<script>
+  document.querySelector('#raz input').onclick = function() {
+    var theDiv = document.createElement('div');  // создать новый тег div
+    theDiv.innerHTML = 'HTML-содержимое';  // его содержимое
+    this.parentNode.appendChild(theDiv);  // поместить новый тег последним в div с id="raz" (вместо this.parentNode может быть любой другой элемент DOM)
+    getComputedStyle(theDiv).opacity;
+    theDiv.style.opacity = '1';
+  }
+</script>
+
+// or
+<!--<script>-->
+<!--    document.querySelector('#raz input').onclick = function() {-->
+<!--        var theDiv = document.createElement('div');-->
+<!--        theDiv.innerHTML = 'HTML-содержимое';-->
+<!--        this.parentNode.insertBefore(theDiv, this.parentNode.firstChild);  // поместить новый тег первым в div с id="raz"-->
+<!--        getComputedStyle(theDiv).opacity;-->
+<!--        theDiv.style.opacity = '1';-->
+<!--    }-->
+<!--</script>-->
+
+<script>
+    (function(){
+        var i = 1;
+        document.querySelector('#raz7 input').onclick = function() {
+            var theText = document.createTextNode(' текст'+i);
+            this.parentNode.appendChild(theText);
+            i++;
+        }
+    })()
+</script>
 </body>
 </html>
