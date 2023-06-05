@@ -64,26 +64,17 @@ const getBoxMass = (rackId, boxId, cb) => {
     });
 };
 
-const printProductMass = productIdx => {
-    let rackIndex;
-    let productName;
-    let boxIndex;
-    getProduct(productIdx)
-        .then(({ name, rackId}) => {
-            rackIndex = rackId;
-            productName = name;
-            return getBoxIdx(rackIndex, productIdx);
-        })
-        .then(boxId => {
-            boxIndex = boxId;
-            return getBoxMass(rackIndex, boxId)
-        })
-        .then(boxMass => {
-            console.log(`Коробка №${boxIndex} c ${productName} находится на стеллаже №${rackIndex} и весит ${boxMass} кг`);
-        })
-        .catch(err => {
-            console.log(`Ошибка: ${err}`)
-        })
+async function printProductMass (productIdx) {
+    console.log('start')
+    try {
+        const {rackId, name} = await getProduct(productIdx)
+
+        const boxId = await getBoxIdx(rackId, productIdx)
+        const boxMass = await getBoxMass(rackId, boxId)
+        console.log(`Коробка №${boxId} c ${name} находится на стеллаже №${rackId} и весит ${boxMass} кг`)
+    } catch (e){
+        console.log(`Ошибка: ${e}`)
+    }
 }
 
 printProductMass(10);
